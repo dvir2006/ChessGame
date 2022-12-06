@@ -131,7 +131,7 @@
     <ClCompile Include="..\Ex7-8Files\stdafx.cpp" />
     <ClCompile Include="Bishop.cpp" />
     <ClCompile Include="Board.cpp" />
-    <ClCompile Include="IFigure.cpp" />
+    <ClCompile Include="IFIgure.cpp" />
     <ClCompile Include="King.cpp" />
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="Pawn.cpp" />
@@ -145,7 +145,7 @@
     <ClInclude Include="..\Ex7-8Files\targetver.h" />
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="Board.h" />
-    <ClInclude Include="IFigure.h" />
+    <ClInclude Include="IFIgure.h" />
     <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Pawn.h" />
