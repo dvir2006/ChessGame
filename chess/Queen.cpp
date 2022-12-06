@@ -6,7 +6,7 @@ Queen::Queen(const int team, const int place) : IFigure(team, place) { }
 //DTOR
 Queen::~Queen() { }
 
-bool Queen::checkValidMove(const int index)const
+int Queen::checkValidMove(const int index, const IFigure* [BOARD_LENGTH][BOARD_LENGTH])const
 {
-
+	return 0;
 }

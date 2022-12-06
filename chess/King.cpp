@@ -6,7 +6,7 @@ King::King(const int team, const int place) : IFigure(team, place) { }
 //DTOR
 King::~King() { }
 
-bool King::checkValidMove(const int index)const
+int King::checkValidMove(const int index, const IFigure* [BOARD_LENGTH][BOARD_LENGTH])const
 {
-
+	return 0;
 }

@@ -6,7 +6,7 @@ Pawn::Pawn(const int team, const int place) : IFigure(team, place) { }
 //DTOR
 Pawn::~Pawn() { }
 
-bool Pawn::checkValidMove(const int index)const
+int Pawn::checkValidMove(const int index, const IFigure* [BOARD_LENGTH][BOARD_LENGTH])const
 {
-	
+	return 0;
 }

@@ -6,7 +6,7 @@ Knight::Knight(const int team, const int place) : IFigure(team, place) { }
 //DTOR
 Knight::~Knight() { }
 
-bool Knight::checkValidMove(const int index)const
+int Knight::checkValidMove(const int index, const IFigure* [BOARD_LENGTH][BOARD_LENGTH])const
 {
-
+	return 0;
 }
