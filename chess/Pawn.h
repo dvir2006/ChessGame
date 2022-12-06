@@ -5,10 +5,10 @@ class Pawn : public IFigure
 {
 public:
 	//CTOR
-	Pawn(const int team, const std::string place);
+	Pawn(const int team, const int place);
 	//DTOR
 	~Pawn();
 
-	bool checkValidMove();
+	virtual bool checkValidMove(const int index)const override;
 };
 
