@@ -14,38 +14,38 @@ Board::Board()
 		}
 		else if (i == 0)
 		{
-			this->_board[i][0] = new Rook();
-			this->_board[i][1] = new Knight();
-			this->_board[i][2] = new Bishop();
-			this->_board[i][3] = new King();
-			this->_board[i][4] = new Queen();
-			this->_board[i][5] = new Bishop();
-			this->_board[i][6] = new Knight();
-			this->_board[i][7] = new Rook();
+			this->_board[i][0] = new Rook(0,0);
+			this->_board[i][1] = new Knight(0,1);
+			this->_board[i][2] = new Bishop(0,2);
+			this->_board[i][3] = new King(0,3);
+			this->_board[i][4] = new Queen(0,4);
+			this->_board[i][5] = new Bishop(0,5);
+			this->_board[i][6] = new Knight(0,6);
+			this->_board[i][7] = new Rook(0,7);
 		}
 		else if (i == 7)
 		{
-			this->_board[i][0] = new Rook();
-			this->_board[i][1] = new Knight();
-			this->_board[i][2] = new Bishop();
-			this->_board[i][3] = new King();
-			this->_board[i][4] = new Queen();
-			this->_board[i][5] = new Bishop();
-			this->_board[i][6] = new Knight();
-			this->_board[i][7] = new Rook();
+			this->_board[i][0] = new Rook(1,i * BOARD_LENGTH+0);
+			this->_board[i][1] = new Knight(1, i * BOARD_LENGTH + 1);
+			this->_board[i][2] = new Bishop(1, i * BOARD_LENGTH + 2);
+			this->_board[i][3] = new King(1, i * BOARD_LENGTH + 3);
+			this->_board[i][4] = new Queen(1, i * BOARD_LENGTH + 4);
+			this->_board[i][5] = new Bishop(1,i * BOARD_LENGTH+5);
+			this->_board[i][6] = new Knight(1, i * BOARD_LENGTH + 6);
+			this->_board[i][7] = new Rook(1, i * BOARD_LENGTH + 7);
 		}
 		else if (i == 1)
 		{
 			for (int j = 0; j < BOARD_LENGTH; j++)
 			{
-				this->_board[i][j] = new Pawn();
+				this->_board[i][j] = new Pawn(0,i*BOARD_LENGTH+j);
 			}
 		}
 		else if (i == 6)
 		{
 			for (int j = 0; j < BOARD_LENGTH; j++)
 			{
-				this->_board[i][j] = new Pawn();
+				this->_board[i][j] = new Pawn(1,i*BOARD_LENGTH+j);
 			}
 		}
 	}
@@ -53,7 +53,9 @@ Board::Board()
 
 Board::~Board()
 {
-	delete[]this->_board;
+	for (int i = 0; i < 8; i++)
+		for (int j = 0; j < 8; j++)
+			delete this->_board[i][j];
 }
 
 void Board::parseMsg(const std::string msgToParse, int(&results)[2])
@@ -69,19 +71,20 @@ void Board::updateBoard(const int src, const int dest)
 	{
 	case 0:
 		this->_board[i][j]->move(src, dest, this->_msg, this->_board);
+		this->changeTeam();
 		break;
 	case 1:
 		this->_board[i][j]->move(src, dest, this->_msg, this->_board);
+		this->changeTeam();
 		break;
 	case BOARD_LENGTH:
 		this->_board[i][j]->move(src, dest, this->_msg, this->_board);
+		this->changeTeam();
 		this->_won = true;
 		break;
 	}
 	this->_msg[65] = flag + '0';
-	this->changeTeam();
 	this->_msg[64] = this->_currTeam;
-
 
 
 }
@@ -96,7 +99,16 @@ std::string Board::getMsg() const
 
 void Board::changeTeam() 
 {
-	this->_currTeam = this->_currTeam ? 0 : 1;
+	if (this->_currTeam)
+	{
+		this->_p2.incSteps();
+		this->_currTeam = 0;
+	}
+	else
+	{
+		this->_p1.incSteps();
+		this->_currTeam = 1;
+	}
 }
 
 
