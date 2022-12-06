@@ -9,8 +9,8 @@ public:
 	//DTOR
 	virtual ~IFigure();
 
-	virtual void move(std::string dst) = 0;
-	virtual bool checkValidMove()const = 0;
+	virtual void move(const int src, const int dst, std::string& msg);
+	virtual bool checkValidMove(std::string m)const = 0;
 
 protected:
 	int _stepsTaken;

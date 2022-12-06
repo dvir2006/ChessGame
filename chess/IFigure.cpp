@@ -9,3 +9,9 @@ IFigure::IFigure(const int team, const std::string place)
 }
 
 IFigure::~IFigure() {}
+
+void IFigure::move(const int src, const int dst, std::string& msg)
+{
+	msg[dst] = msg[src];
+	msg[src] = '#';
+}
