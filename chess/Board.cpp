@@ -101,12 +101,12 @@ void Board::changeTeam()
 {
 	if (this->_currTeam)
 	{
-		this->_p2.incSteps();
+		this->_p2.incStepsTaken();
 		this->_currTeam = 0;
 	}
 	else
 	{
-		this->_p1.incSteps();
+		this->_p1.incStepsTaken();
 		this->_currTeam = 1;
 	}
 }
