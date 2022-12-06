@@ -21,7 +21,7 @@
     <ClCompile Include="..\Ex7-8Files\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IFIgure.cpp">
+    <ClCompile Include="IFigure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Board.cpp">
@@ -59,7 +59,7 @@
     <ClInclude Include="..\Ex7-8Files\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IFIgure.h">
+    <ClInclude Include="IFigure.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Board.h">
