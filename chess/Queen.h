@@ -9,6 +9,6 @@ public:
 	//DTOR
 	~Queen();
 
-	virtual int checkValidMove(const int index, const IFigure* [BOARD_LENGTH][BOARD_LENGTH])const override;
+	virtual int checkValidMove(const int index, IFigure* (&board)[BOARD_LENGTH][BOARD_LENGTH])const override;
 };
 
