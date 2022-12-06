@@ -129,11 +129,29 @@
   <ItemGroup>
     <ClCompile Include="..\Ex7-8Files\Source.cpp" />
     <ClCompile Include="..\Ex7-8Files\stdafx.cpp" />
+    <ClCompile Include="Bishop.cpp" />
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="IFigure.cpp" />
+    <ClCompile Include="King.cpp" />
+    <ClCompile Include="Knight.cpp" />
+    <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Queen.cpp" />
+    <ClCompile Include="Rook.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Ex7-8Files\Pipe.h" />
     <ClInclude Include="..\Ex7-8Files\stdafx.h" />
     <ClInclude Include="..\Ex7-8Files\targetver.h" />
+    <ClInclude Include="Bishop.h" />
+    <ClInclude Include="Board.h" />
+    <ClInclude Include="IFigure.h" />
+    <ClInclude Include="King.h" />
+    <ClInclude Include="Knight.h" />
+    <ClInclude Include="Pawn.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Queen.h" />
+    <ClInclude Include="Rook.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
