@@ -1,6 +1,7 @@
 #pragma once
-class Bishop :
-    public IFigure
+#include "IFigure.h"
+
+class Bishop : public IFigure
 {
 };
 
