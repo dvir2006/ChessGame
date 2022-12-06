@@ -1,12 +1,12 @@
 #include "Pawn.h"
 
 //CTOR
-Pawn::Pawn(const int team, const std::string place) : IFigure(team, place) { }
+Pawn::Pawn(const int team, const int place) : IFigure(team, place) { }
 
 //DTOR
 Pawn::~Pawn() { }
 
-bool Pawn::checkValidMove()
+bool Pawn::checkValidMove(const int index)const
 {
 	
 }

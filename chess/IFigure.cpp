@@ -1,7 +1,7 @@
 #include "IFIgure.h"
 
 //CTOR
-IFigure::IFigure(const int team, const std::string place)
+IFigure::IFigure(const int team, const int place)
 {
 	this->_stepsTaken = 0;
 	this->_team = team;
