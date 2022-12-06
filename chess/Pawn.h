@@ -1,6 +1,6 @@
 #pragma once
-#include "IFigure.h"
-class Pawn :public IFigure
+class Pawn :
+    public IFigure
 {
 };
 
