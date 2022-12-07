@@ -16,6 +16,11 @@ void IFigure::setPlace(const int newPlace)
 	this->_place = newPlace;
 }
 
+int IFigure::getTeam()
+{
+	return this->_team;
+}
+
 void IFigure::move(const int src, const int dst, std::string& msg, IFigure* (&board)[BOARD_LENGTH][BOARD_LENGTH])
 {
 	int dstLine = dst / BOARD_LENGTH;

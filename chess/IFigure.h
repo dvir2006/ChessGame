@@ -12,7 +12,11 @@ public:
 	//DTOR
 	virtual ~IFigure();
 
+	//setters
 	void setPlace(const int newPlace);
+	
+	//getters
+	int getTeam();
 
 	virtual void move(const int src, const int dst, std::string& msg, IFigure*(& board)[BOARD_LENGTH][BOARD_LENGTH]);
 	virtual int checkValidMove(const int index, IFigure* (&board)[BOARD_LENGTH][BOARD_LENGTH], int currTeam)const = 0;
