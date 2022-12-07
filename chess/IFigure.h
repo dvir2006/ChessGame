@@ -3,7 +3,7 @@
 #include "Board.h"
 
 class Board;
-
+#define BOARD_LENGTH 8
 class IFigure
 {
 public:

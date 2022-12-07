@@ -1,7 +1,9 @@
 #pragma once
 #define BOARD_LENGTH 8
 #define START_MSG "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"
+
 #include "IFigure.h"
+class IFigure;
 #include "Bishop.h"
 #include "Rook.h"
 #include "Pawn.h"
@@ -21,7 +23,6 @@
 #define VALID_MOV_CHECKMATE 8
 
 
-class IFigure;
 
 class Board
 {
