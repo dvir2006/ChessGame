@@ -9,6 +9,6 @@ public:
 	//DTOR
 	~Rook();
 
-	virtual int checkValidMove(const int index,  IFigure* (&board)[BOARD_LENGTH][BOARD_LENGTH])const override;
+	virtual int checkValidMove(const int index,  IFigure* (&board)[BOARD_LENGTH][BOARD_LENGTH], int currTeam)const override;
 };
 

@@ -11,6 +11,8 @@
 #include "Player.h"
 #include <string>
 
+class IFigure;
+
 class Board
 {
 public:
