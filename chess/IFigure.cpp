@@ -26,7 +26,7 @@ void IFigure::move(const int src, const int dst, std::string& msg, IFigure* (&bo
 	msg[src] = '#';
 
 	board[dstLine][dstCol] = board[srcLine][srcCol];
-	board[srcLine][srcCol] = 0;
+	board[srcLine][srcCol] = NULL;
 	this->setPlace(dst);
 	this->_stepsTaken++;
 
