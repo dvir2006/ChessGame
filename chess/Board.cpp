@@ -66,7 +66,7 @@ void Board::parseMsg(const std::string msgToParse, int(&results)[2])
 
 void Board::updateBoard(const int src, const int dest)
 {
-	int i = src / BOARD_LENGTH,j = src % BOARD_LENGTH,flag= this->_board[i][j]->checkValidMove(dest, this->_board);
+	int i = src / BOARD_LENGTH,j = src % BOARD_LENGTH,flag= this->_board[i][j]->checkValidMove(dest, this->_board,this->_currTeam);
 	switch (flag)
 	{
 	case 0:
