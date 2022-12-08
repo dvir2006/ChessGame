@@ -1,9 +1,7 @@
 #pragma once
 #include <string>
-#include "Board.h"
+#include "Consts.h"
 
-class Board;
-#define BOARD_LENGTH 8
 class IFigure
 {
 public:

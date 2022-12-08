@@ -145,6 +145,7 @@
     <ClInclude Include="..\Ex7-8Files\targetver.h" />
     <ClInclude Include="Bishop.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Consts.h" />
     <ClInclude Include="IFigure.h" />
     <ClInclude Include="King.h" />
     <ClInclude Include="Knight.h" />
