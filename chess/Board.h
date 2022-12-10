@@ -16,7 +16,6 @@ class Board
 public:
 	Board();
 	~Board();
-	void print() const;
 	void parseMsg(const std::string msgToParse, int (& results)[2]);
 	void updateBoard(const int src,const int dest);
 	std::string getMsg()const;
@@ -28,5 +27,9 @@ private:
 	std::string _msg;
 	int _currTeam;
 	bool _won;
+	int isCheck();
+	bool isCheckmate(const int place);
+	bool willCheck(const int src, const int dest);
+	int findKing();
 };
 

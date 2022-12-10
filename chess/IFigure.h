@@ -12,9 +12,11 @@ public:
 
 	//setters
 	void setPlace(const int newPlace);
+	void decStepsTaken();
 	
 	//getters
 	int getTeam();
+	std::string getType() const;
 
 	virtual void move(const int src, const int dst, std::string& msg, IFigure*(& board)[BOARD_LENGTH][BOARD_LENGTH]);
 	virtual int checkValidMove(const int index, IFigure* (&board)[BOARD_LENGTH][BOARD_LENGTH], int currTeam)const = 0;

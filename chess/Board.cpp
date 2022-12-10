@@ -53,9 +53,58 @@ Board::Board()
 
 Board::~Board()
 {
-	for (int i = 0; i < 8; i++)
-		for (int j = 0; j < 8; j++)
+	for (int i = 0; i < BOARD_LENGTH; i++)
+		for (int j = 0; j < BOARD_LENGTH; j++)
 			delete this->_board[i][j];
+}
+
+int Board::isCheck()
+{
+	int place = findKing();
+	for (int i = 0; i < BOARD_LENGTH; i++)
+		for (int j = 0; j < BOARD_LENGTH; j++)
+			if (!this->_board[i][j]->checkValidMove(place, this->_board, !this->_currTeam))
+				return i * BOARD_LENGTH + j;
+	return -1;
+}
+
+bool Board::isCheckmate(const int place)
+{
+	for (int i = 0; i < BOARD_LENGTH; i++)
+		for (int j = 0; j < BOARD_LENGTH; j++)
+			if (!this->_board[i][j]->checkValidMove(place, this->_board, this->_currTeam))
+			{
+				if (!this->_board[i][j]->getType().compare("King") && willCheck(i * BOARD_LENGTH + j,place))
+					continue;
+				return false;
+			}
+	return true;
+}
+
+bool Board::willCheck(const int src, const int dest)
+{
+	int i= src / BOARD_LENGTH, j=src% BOARD_LENGTH, i1= dest / BOARD_LENGTH, j1=dest% BOARD_LENGTH;
+	IFigure* tempSrc = this->_board[i][j],* tempDest = this->_board[i1][j1];
+	this->_board[i][j]->move(src, dest, this->_msg, this->_board);
+	if (isCheck() != -1)
+	{
+		this->_board[i][j] = tempSrc;
+		this->_board[i][j]->setPlace(src);
+		this->_board[i][j]->decStepsTaken();
+		this->_board[i1][j1] = tempDest;
+		this->_board[i1][j1]->setPlace(dest);
+		return true;
+	}
+	return false;
+}
+
+int Board::findKing()
+{
+	for (int i = 0; i < BOARD_LENGTH; i++)
+		for (int j = 0; j < BOARD_LENGTH; j++)
+			if (!this->_board[i][j]->getType().compare("King") && this->_board[i][j]->getTeam() == this->_currTeam)
+				return i * BOARD_LENGTH + j;
+	return 0;
 }
 
 void Board::parseMsg(const std::string msgToParse, int(&results)[2])

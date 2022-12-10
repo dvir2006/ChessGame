@@ -16,9 +16,19 @@ void IFigure::setPlace(const int newPlace)
 	this->_place = newPlace;
 }
 
+void IFigure::decStepsTaken()
+{
+	this->_stepsTaken--;
+}
+
 int IFigure::getTeam()
 {
 	return this->_team;
+}
+
+std::string IFigure::getType() const
+{
+	return this->_type;
 }
 
 void IFigure::move(const int src, const int dst, std::string& msg, IFigure* (&board)[BOARD_LENGTH][BOARD_LENGTH])
