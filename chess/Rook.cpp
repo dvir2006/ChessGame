@@ -22,15 +22,15 @@ int Rook::checkValidMove(const int index, IFigure* (&board)[BOARD_LENGTH][BOARD_
 		return BAD_MOV_WRONG_INDEX;
 	else if (this->_place == index)
 		return BAD_MOV_SAME_INDEX;
-	else if (srcI != dstI || srcJ != dstJ)
+	else if (srcI != dstI && srcJ != dstJ)
 		return BAD_MOV_WRONG_MOV;
 
 	if (srcI == dstI)
-		for (j = srcJ; j != dstJ; j += cj)
+		for (j = srcJ + cj; j != dstJ; j += cj)
 			if (board[srcI][j] != NULL)
 				return BAD_MOV_WRONG_MOV;
 	if (srcJ == dstJ)
-		for (i = srcI; i != dstI; i += ci)
+		for (i = srcI + ci; i != dstI; i += ci)
 			if (board[i][srcJ] != NULL)
 				return BAD_MOV_WRONG_MOV;
 	return VALID_MOV;

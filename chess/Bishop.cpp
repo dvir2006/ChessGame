@@ -21,13 +21,11 @@ int Bishop::checkValidMove(const int index,  IFigure* (&board)[BOARD_LENGTH][BOA
 		return BAD_MOV_SAME_INDEX;
 	else if (abs(i - i1) != abs(j - j1))
 		return BAD_MOV_WRONG_MOV;
-	for(i1;i<i1;i+=ci)
+	for(i1 += ci;i != i1;i1 += ci)
 	{
-		for (j1; j < j1; j += cj)
-		{
-			if(board[i1][j1] != nullptr)
-				return BAD_MOV_WRONG_MOV;
-		}
+		j1 += cj;
+		if(board[i1][j1] != nullptr)
+			return BAD_MOV_WRONG_MOV;
 	}
 	return VALID_MOV;
 }
