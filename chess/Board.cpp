@@ -115,22 +115,25 @@ void Board::parseMsg(const std::string msgToParse, int(&results)[2])
 
 void Board::updateBoard(const int src, const int dest)
 {
-	int i = src / BOARD_LENGTH,j = src % BOARD_LENGTH,flag= this->_board[i][j]->checkValidMove(dest, this->_board,this->_currTeam);
-	switch (flag)
+	int i = src / BOARD_LENGTH,j = src % BOARD_LENGTH,flag= this->_board[i][j]->checkValidMove(dest, this->_board,this->_currTeam),checkPlace=-1;
+	if (willCheck(src, dest))
 	{
-	case 0:
-		this->_board[i][j]->move(src, dest, this->_msg, this->_board);
-		this->changeTeam();
-		break;
-	case 1:
-		this->_board[i][j]->move(src, dest, this->_msg, this->_board);
-		this->changeTeam();
-		break;
-	case BOARD_LENGTH:
-		this->_board[i][j]->move(src, dest, this->_msg, this->_board);
-		this->changeTeam();
-		this->_won = true;
-		break;
+		flag = BAD_MOV_MAKE_CHECK;
+	}
+	if (!flag)
+	{
+		this->_board[i][j]->move(src,dest,this->_msg,this->_board);
+		checkPlace = isCheck();
+		if (checkPlace != -1)
+		{
+			flag = VALID_MOV_CHECK;
+			if (isCheckmate(checkPlace))
+			{
+				flag = VALID_MOV_CHECKMATE;
+				this->_won = true;
+			}
+		}
+		changeTeam();
 	}
 	this->_msg[65] = flag + '0';
 	this->_msg[64] = this->_currTeam;
