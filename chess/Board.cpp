@@ -138,8 +138,8 @@ void Board::updateBoard(const int src, const int dest)
 		}
 		changeTeam();
 	}
-	this->_msg[65] = flag + '0';
-	this->_msg[64] = this->_currTeam;
+	this->_msg[0] = flag + '0';
+	this->_msg[1] = 0;
 
 
 }
