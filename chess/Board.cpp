@@ -84,18 +84,21 @@ bool Board::isCheckmate(const int place)
 bool Board::willCheck(const int src, const int dest)
 {
 	int i= src / BOARD_LENGTH, j=src% BOARD_LENGTH, i1= dest / BOARD_LENGTH, j1=dest% BOARD_LENGTH;
+	bool ans = false;
 	IFigure* tempSrc = this->_board[i][j],* tempDest = this->_board[i1][j1];
 	this->_board[i][j]->move(src, dest, this->_msg, this->_board);
+	changeTeam();
 	if (isCheck() != -1)
 	{
-		this->_board[i][j] = tempSrc;
-		this->_board[i][j]->setPlace(src);
-		this->_board[i][j]->decStepsTaken();
-		this->_board[i1][j1] = tempDest;
-		this->_board[i1][j1]->setPlace(dest);
-		return true;
+		ans = true;
 	}
-	return false;
+	this->_board[i][j] = tempSrc;
+	this->_board[i][j]->setPlace(src);
+	this->_board[i][j]->decStepsTaken();
+	this->_board[i1][j1] = tempDest;
+	this->_board[i1][j1]->setPlace(dest);
+	changeTeam();
+	return ans;
 }
 
 int Board::findKing()
