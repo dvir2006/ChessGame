@@ -63,8 +63,9 @@ int Board::isCheck()
 	int place = findKing();
 	for (int i = 0; i < BOARD_LENGTH; i++)
 		for (int j = 0; j < BOARD_LENGTH; j++)
-			if (!this->_board[i][j]->checkValidMove(place, this->_board, !this->_currTeam))
-				return i * BOARD_LENGTH + j;
+			if(this->_board[i][j] != nullptr)
+				if (!this->_board[i][j]->checkValidMove(place, this->_board, !this->_currTeam))
+					return i * BOARD_LENGTH + j;
 	return -1;
 }
 
@@ -72,12 +73,13 @@ bool Board::isCheckmate(const int place)
 {
 	for (int i = 0; i < BOARD_LENGTH; i++)
 		for (int j = 0; j < BOARD_LENGTH; j++)
-			if (!this->_board[i][j]->checkValidMove(place, this->_board, this->_currTeam))
-			{
-				if (!this->_board[i][j]->getType().compare("King") && willCheck(i * BOARD_LENGTH + j,place))
-					continue;
-				return false;
-			}
+			if (this->_board[i][j] != nullptr)
+				if (!this->_board[i][j]->checkValidMove(place, this->_board, this->_currTeam))
+				{
+					if (!this->_board[i][j]->getType().compare("King") && willCheck(i * BOARD_LENGTH + j,place))
+						continue;
+					return false;
+				}
 	return true;
 }
 
@@ -93,10 +95,14 @@ bool Board::willCheck(const int src, const int dest)
 		ans = true;
 	}
 	this->_board[i][j] = tempSrc;
-	this->_board[i][j]->setPlace(src);
-	this->_board[i][j]->decStepsTaken();
+	if (this->_board[i][j] != nullptr)
+	{
+		this->_board[i][j]->setPlace(src);
+		this->_board[i][j]->decStepsTaken();
+	}
 	this->_board[i1][j1] = tempDest;
-	this->_board[i1][j1]->setPlace(dest);
+	if (this->_board[i1][j1] != nullptr)
+		this->_board[i1][j1]->setPlace(dest);
 	changeTeam();
 	return ans;
 }
@@ -105,15 +111,16 @@ int Board::findKing()
 {
 	for (int i = 0; i < BOARD_LENGTH; i++)
 		for (int j = 0; j < BOARD_LENGTH; j++)
-			if (!this->_board[i][j]->getType().compare("King") && this->_board[i][j]->getTeam() == this->_currTeam)
-				return i * BOARD_LENGTH + j;
-	return 0;
+			if(this->_board[i][j] != nullptr)
+				if (!this->_board[i][j]->getType().compare("King") && this->_board[i][j]->getTeam() == this->_currTeam)
+					return i * BOARD_LENGTH + j;
+	return 0; 
 }
 
 void Board::parseMsg(const std::string msgToParse, int(&results)[2])
 {
-	results[0] = int(msgToParse[1]) - '0' + int(msgToParse[0]) - 'a';
-	results[1] = int(msgToParse[2]) - '0' + int(msgToParse[3]) - 'a';
+	results[0] = BOARD_LENGTH*BOARD_LENGTH - 1 - ((int(msgToParse[1]) - '0' - 1) * BOARD_LENGTH + int(msgToParse[0]) - 'a');
+	results[1] = BOARD_LENGTH*BOARD_LENGTH - 1 - ((int(msgToParse[3]) - '0' - 1) * BOARD_LENGTH + int(msgToParse[2]) - 'a');
 }
 
 void Board::updateBoard(const int src, const int dest)

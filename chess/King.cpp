@@ -18,6 +18,6 @@ int King::checkValidMove(const int index, IFigure* (&board)[BOARD_LENGTH][BOARD_
 	else if (this->_place == index)
 		return BAD_MOV_SAME_INDEX;
 	else if (i1 +1 >= i && i >= i1-1 && j1 + 1 >= j && j >= j1 - 1)
-		return BAD_MOV_WRONG_MOV;
-	return VALID_MOV;
+		return VALID_MOV;
+	return BAD_MOV_WRONG_MOV;
 }

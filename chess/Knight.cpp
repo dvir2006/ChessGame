@@ -18,6 +18,6 @@ int Knight::checkValidMove(const int index, IFigure* (&board)[BOARD_LENGTH][BOAR
 	else if (this->_place == index)
 		return BAD_MOV_SAME_INDEX;
 	else if ((i1+2 == i && j+1 == j) || (i1 + 2 == i && j - 1 == j) || (i1 - 2 == i && j + 1 == j) || (i1 - 2 == i && j - 1 == j) || (i1 + 1 == i && j + 2 == j)|| (i1 - 1 == i && j + 2 == j) || (i1 + 1 == i && j - 2 == j) || (i1 - 1 == i && j - 2 == j))
-		return BAD_MOV_WRONG_MOV;
-	return VALID_MOV;
+		return VALID_MOV;
+	return  BAD_MOV_WRONG_MOV;
 }

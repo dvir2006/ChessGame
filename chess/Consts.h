@@ -1,7 +1,7 @@
 #pragma once
 
 #define BOARD_LENGTH 8
-#define START_MSG "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR1"
+#define START_MSG "rnbkqbnrpppppppp################################PPPPPPPPRNBKQBNR0"
 
 #define VALID_MOV 0
 #define VALID_MOV_CHECK 1
