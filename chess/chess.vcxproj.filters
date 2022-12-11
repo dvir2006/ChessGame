@@ -90,4 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="music1.mp3">
+      <Filter>Source Files</Filter>
+    </Media>
+  </ItemGroup>
 </Project>

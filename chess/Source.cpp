@@ -6,6 +6,7 @@ in order to read and write information from and to the Backend
 
 #include "Pipe.h"
 #include "Board.h"
+#include "Windows.h"
 #include <iostream>
 #include <thread>
 
@@ -17,7 +18,7 @@ using std::string;
 void main()
 {
 	srand(time_t(NULL));
-
+	
 	
 	Pipe p;
 	bool isConnect = p.connect();
@@ -42,7 +43,7 @@ void main()
 		}
 	}
 	
-
+	PlaySound(TEXT("music1.wav"), NULL, SND_LOOP | SND_ASYNC);
 	char msgToGraphics[1024];
 	// msgToGraphics should contain the board string accord the protocol
 	// YOUR CODE
