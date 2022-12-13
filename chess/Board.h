@@ -28,7 +28,7 @@ private:
 	int _currTeam;
 	bool _won;
 	int isCheck();
-	bool isCheckmate(const int place);
+	bool isCheckmate();
 	bool willCheck(const int src, const int dest);
 	int findKing();
 };

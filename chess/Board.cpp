@@ -69,7 +69,7 @@ int Board::isCheck()
 	return -1;
 }
 
-bool Board::isCheckmate(const int place)
+bool Board::isCheckmate()
 {	
 	for (int k = 0; k < BOARD_LENGTH * BOARD_LENGTH; k++)
 	{
@@ -88,11 +88,10 @@ bool Board::isCheckmate(const int place)
 
 bool Board::willCheck(const int src, const int dest)
 {
-	int i= src / BOARD_LENGTH, j=src% BOARD_LENGTH, i1= dest / BOARD_LENGTH, j1=dest% BOARD_LENGTH;
+	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
 	bool ans = false;
-	IFigure* tempSrc = this->_board[i][j],* tempDest = this->_board[i1][j1];
-	this->_board[i][j]->move(src, dest, this->_msg, this->_board);
-	//changeTeam();
+	IFigure* tempSrc = this->_board[i][j], *tempDest = this->_board[i1][j1];
+	this->_board[i][j]->move(src, dest, this->_board);
 	if (isCheck() != -1)
 	{
 		ans = true;
@@ -106,7 +105,6 @@ bool Board::willCheck(const int src, const int dest)
 	this->_board[i1][j1] = tempDest;
 	if (this->_board[i1][j1] != nullptr)
 		this->_board[i1][j1]->setPlace(dest);
-	//changeTeam();
 	return ans;
 }
 
@@ -128,7 +126,7 @@ void Board::parseMsg(const std::string msgToParse, int(&results)[2])
 
 void Board::updateBoard(const int src, const int dest)
 {
-	int i = src / BOARD_LENGTH,j = src % BOARD_LENGTH,flag = 0,checkPlace = -1;
+	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, flag = 0, checkPlace = -1;
 	if (this->_board[i][j] != nullptr)
 	{
 		flag = this->_board[i][j]->checkValidMove(dest, this->_board, this->_currTeam);
@@ -138,13 +136,13 @@ void Board::updateBoard(const int src, const int dest)
 		}
 		if (!flag)
 		{
-			this->_board[i][j]->move(src, dest, this->_msg, this->_board);
+			this->_board[i][j]->move(src, dest, this->_board);
 			changeTeam();
 			checkPlace = isCheck();
 			if (checkPlace != -1)
 			{
 				flag = VALID_MOV_CHECK;
-				if (isCheckmate(checkPlace))
+				if (isCheckmate())
 				{
 					flag = VALID_MOV_CHECKMATE;
 					this->_won = true;
@@ -156,15 +154,9 @@ void Board::updateBoard(const int src, const int dest)
 	{
 		flag = BAD_MOV_SRC_OP;
 	}
-
 	this->_msg[0] = flag + '0';
 	this->_msg[1] = 0;
-
-
 }
-
-
-
 
 std::string Board::getMsg() const
 {
@@ -184,10 +176,3 @@ void Board::changeTeam()
 		this->_currTeam = 1;
 	}
 }
-
-
-
-
-
-
-
