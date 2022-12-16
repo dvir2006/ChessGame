@@ -67,7 +67,8 @@ namespace chessGraphics
         {
             pipeServer.Close();
         }
-    }
+    }
+
 
     
     public class StreamString

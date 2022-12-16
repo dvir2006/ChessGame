@@ -218,6 +218,8 @@ namespace chessGraphics
             "Invalid move - illegeal movement with piece",
             "Invalid move - source and dest are equal",
             "Game over - check mate",
+            "castle - valid move",
+            "en passant - valid move",
             "Unknown message"
             };
 
@@ -289,8 +291,49 @@ namespace chessGraphics
                         matBoard[dstSquare.Row, dstSquare.Col].FlatAppearance.BorderColor = Color.Blue;
                     
                     }
+                     else if (res.ToLower().StartsWith("castle"))
+                     {
+                         isCurPlWhite = !isCurPlWhite;
+                         lblCurrentPlayer.Text = isCurPlWhite ? "White" : "Black";
 
-                    lblEngineCalc.Visible = false;
+                         matBoard[dstSquare.Row, dstSquare.Col].BackgroundImage = matBoard[srcSquare.Row, srcSquare.Col].BackgroundImage;
+                         matBoard[srcSquare.Row, srcSquare.Col].BackgroundImage = null;
+                         if(dstSquare.Col > srcSquare.Col)
+                         {
+                             matBoard[dstSquare.Row, dstSquare.Col-1].BackgroundImage = matBoard[srcSquare.Row, 0].BackgroundImage;
+                         }
+                         else
+                         {
+                             matBoard[dstSquare.Row, dstSquare.Col+1].BackgroundImage = matBoard[srcSquare.Row, BOARD_SIZE-1].BackgroundImage;
+                         }
+                          
+                         matBoard[srcSquare.Row, srcSquare.Col].FlatAppearance.BorderColor = Color.Blue;
+                         matBoard[dstSquare.Row, dstSquare.Col].FlatAppearance.BorderColor = Color.Blue;
+
+                     }
+                     else if (res.ToLower().StartsWith("en passant"))
+                     {
+                         isCurPlWhite = !isCurPlWhite;
+                         lblCurrentPlayer.Text = isCurPlWhite ? "White" : "Black";
+
+                         matBoard[dstSquare.Row, dstSquare.Col].BackgroundImage = matBoard[srcSquare.Row, srcSquare.Col].BackgroundImage;
+                         matBoard[srcSquare.Row, srcSquare.Col].BackgroundImage = null;
+                         
+                         if(srcSquare.Row > srcSquare.Row)
+                         {
+                             matBoard[dstSquare.Row-1, dstSquare.Col].BackgroundImage = matBoard[srcSquare.Row, srcSquare.Col].BackgroundImage;
+                         }
+                         else
+                         {
+                             matBoard[dstSquare.Row+1, dstSquare.Col].BackgroundImage = matBoard[srcSquare.Row, srcSquare.Col].BackgroundImage;
+                         }
+
+                         matBoard[srcSquare.Row, srcSquare.Col].FlatAppearance.BorderColor = Color.Blue;
+                         matBoard[dstSquare.Row, dstSquare.Col].FlatAppearance.BorderColor = Color.Blue;
+
+                     }
+
+                     lblEngineCalc.Visible = false;
                     lblResult.Text = string.Format("{0}", res);
                     lblResult.Visible = true;
                     label2.Visible = true;
