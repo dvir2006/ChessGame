@@ -219,7 +219,9 @@ namespace chessGraphics
             "Invalid move - source and dest are equal",
             "Game over - check mate",
             "castle - valid move",
+            "castle - Valid move - you made chess",
             "en passant - valid move",
+            "en passant - Valid move - you made chess",
             "Unknown message"
             };
 
