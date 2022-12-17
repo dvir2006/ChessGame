@@ -87,6 +87,7 @@
             this.btnBoard.Tag = "a8";
             this.btnBoard.UseVisualStyleBackColor = false;
             this.btnBoard.Visible = false;
+            this.btnBoard.Click += new System.EventHandler(this.btnBoard_Click);
             // 
             // lblMove
             // 

@@ -31,5 +31,9 @@ private:
 	bool isCheckmate();
 	bool willCheck(const int src, const int dest);
 	int findKing();
+	int isCastle(const int src, const int dest);
+	void castle(const int src, const int dest, const int isCas);
+	int isEnPassant(const int src, const int dest);
+	void enPassant(const int src, const int dest);
 };
 

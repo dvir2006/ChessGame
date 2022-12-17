@@ -302,11 +302,13 @@ namespace chessGraphics
                          matBoard[srcSquare.Row, srcSquare.Col].BackgroundImage = null;
                          if(dstSquare.Col > srcSquare.Col)
                          {
-                             matBoard[dstSquare.Row, dstSquare.Col-1].BackgroundImage = matBoard[srcSquare.Row, 0].BackgroundImage;
+                             matBoard[dstSquare.Row, dstSquare.Col - 1].BackgroundImage = matBoard[srcSquare.Row, BOARD_SIZE - 1].BackgroundImage;
+                             matBoard[srcSquare.Row, BOARD_SIZE - 1].BackgroundImage = null;
                          }
                          else
                          {
-                             matBoard[dstSquare.Row, dstSquare.Col+1].BackgroundImage = matBoard[srcSquare.Row, BOARD_SIZE-1].BackgroundImage;
+                             matBoard[dstSquare.Row, dstSquare.Col + 1].BackgroundImage = matBoard[srcSquare.Row, 0].BackgroundImage;
+                             matBoard[srcSquare.Row, 0].BackgroundImage = null;
                          }
                           
                          matBoard[srcSquare.Row, srcSquare.Col].FlatAppearance.BorderColor = Color.Blue;
@@ -372,6 +374,11 @@ namespace chessGraphics
 
             enginePipe.sendEngineMove("quit");
             enginePipe.close();
+        }
+
+        private void btnBoard_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

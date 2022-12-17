@@ -126,10 +126,12 @@ void Board::parseMsg(const std::string msgToParse, int(&results)[2])
 
 void Board::updateBoard(const int src, const int dest)
 {
-	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, flag = 0, checkPlace = -1;
+	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, flag = 0, checkPlace = -1, isCas = 0, isEn = 0;
 	if (this->_board[i][j] != nullptr)
 	{
 		flag = this->_board[i][j]->checkValidMove(dest, this->_board, this->_currTeam);
+		isCas = isCastle(src, dest);
+		isEn = isEnPassant(src, dest);
 		if (willCheck(src, dest))
 		{
 			flag = BAD_MOV_MAKE_CHECK;
@@ -137,11 +139,46 @@ void Board::updateBoard(const int src, const int dest)
 		if (!flag)
 		{
 			this->_board[i][j]->move(src, dest, this->_board);
+
 			changeTeam();
 			checkPlace = isCheck();
 			if (checkPlace != -1)
 			{
 				flag = VALID_MOV_CHECK;
+
+				if (isCheckmate())
+				{
+					flag = VALID_MOV_CHECKMATE;
+					this->_won = true;
+				}
+			}
+		}
+		else if (isCas)
+		{
+			castle(src, dest, isCas);
+			flag = VALID_MOV_CAS;
+			changeTeam();
+			checkPlace = isCheck();
+			if (checkPlace != -1)
+			{
+				flag = VALID_MOV_CHECK_CAS;
+
+				if (isCheckmate())
+				{
+					flag = VALID_MOV_CHECKMATE;
+					this->_won = true;
+				}
+			}
+		}
+		else if (isEn)
+		{
+			enPassant(src, dest);
+			flag = VALID_MOV_EN;
+			changeTeam();
+			checkPlace = isCheck();
+			if (checkPlace != -1)
+			{
+				flag = VALID_MOV_CHECK_EN;
 				if (isCheckmate())
 				{
 					flag = VALID_MOV_CHECKMATE;
@@ -154,9 +191,21 @@ void Board::updateBoard(const int src, const int dest)
 	{
 		flag = BAD_MOV_SRC_OP;
 	}
-	this->_msg[0] = flag + '0';
-	this->_msg[1] = 0;
+
+	if (flag < 10)
+	{
+		this->_msg[0] = flag + '0';
+		this->_msg[1] = 0;
+	}
+	else
+	{
+		this->_msg[0] = (flag % 10) + '0';
+		this->_msg[1] = (flag / 10) + '0';
+		this->_msg[2] = 0;
+	}
+
 }
+
 
 std::string Board::getMsg() const
 {
@@ -175,4 +224,83 @@ void Board::changeTeam()
 		this->_p1.incStepsTaken();
 		this->_currTeam = 1;
 	}
+}
+
+int Board::isCastle(const int src, const int dest)
+{
+	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
+	if (i == i1 && this->_board[i][j]->getType() == "King" && this->_board[i][j]->getSteps() == 0)
+	{
+		//queenside
+		if (j == 2 + j1 && this->_board[i][0]->getType() == "Rook" && this->_board[i][1] == nullptr && this->_board[i][2] == nullptr && this->_board[i][3] == nullptr && this->_board[i][0]->getSteps() == 0)
+		{
+			if (!willCheck(src, dest + 1) && !willCheck(src, dest))
+			{
+				return 1;
+			}
+		}
+		//kingside
+		else if (j == j1 - 2 && this->_board[i][BOARD_LENGTH - 1]->getType() == "Rook" && this->_board[i][BOARD_LENGTH - 2] == nullptr && this->_board[i][BOARD_LENGTH - 3] == nullptr && this->_board[i][BOARD_LENGTH - 1]->getSteps() == 0)
+		{
+			if (!willCheck(src, dest - 1) && !willCheck(src, dest))
+			{
+				return 2;
+			}
+
+		}
+	}
+	return 0;
+}
+
+void Board::castle(int src, int dest, int isCas)
+{
+	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
+	this->_board[i][j]->setPlace(dest);
+	this->_board[i][j]->incStepsTaken();
+	this->_board[i1][j1] = this->_board[i][j];
+	this->_board[i][j] = NULL;
+	if (isCas == 1)
+	{
+		this->_board[i][0]->setPlace(dest + 1);
+		this->_board[i][0]->incStepsTaken();
+		this->_board[i][j - 1] = this->_board[i][0];
+		this->_board[i][0] = NULL;
+	}
+	else if (isCas == 2)
+	{
+		this->_board[i][BOARD_LENGTH - 1]->setPlace(dest - 1);
+		this->_board[i][BOARD_LENGTH - 1]->incStepsTaken();
+		this->_board[i][j + 1] = this->_board[i][BOARD_LENGTH - 1];
+		this->_board[i][BOARD_LENGTH - 1] = NULL;
+	}
+}
+
+int Board::isEnPassant(const int src, const int dest)
+{
+	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
+	if (i == 3 && this->_board[i][j]->getType() == "Pawn" && this->_board[i][j]->getSteps() > 1)
+	{
+		//White team
+		if ((i - 1 == i1 && j + 1 == j1) && this->_board[i1][j1] == nullptr && this->_board[i][j + 1]->getType() == "Pawn" && this->_board[i][j + 1]->getSteps() == 1)
+			return true;
+		else if ((i - 1 == i1 && j - 1 == j1) && this->_board[i1][j1] == nullptr && this->_board[i][j - 1]->getType() == "Pawn" && this->_board[i][j - 1]->getSteps() == 1)
+			return true;
+	}
+	else if (i == 4 && this->_board[i][j]->getType() == "Pawn" && this->_board[i][j]->getSteps() > 1)
+	{
+		//Black team
+		if ((i + 1 == i1 && j + 1 == j1) && this->_board[i1][j1] == nullptr && this->_board[i][j + 1]->getType() == "Pawn" && this->_board[i][j + 1]->getSteps() == 1)
+			return true;
+		else if ((i + 1 == i1 && j - 1 == j1) && this->_board[i1][j1] == nullptr && this->_board[i][j - 1]->getType() == "Pawn" && this->_board[i][j - 1]->getSteps() == 1)
+			return true;
+	}
+	return false;
+}
+
+void Board::enPassant(const int src, const int dest)
+{
+	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
+	this->_board[i][j]->move(src, dest, this->_board);
+	delete this->_board[i1][j1];
+	this->_board[i1][j1] = nullptr;
 }
