@@ -1,5 +1,6 @@
 #include "Board.h"
 
+//CTOR
 Board::Board()
 	:_msg(START_MSG), _p1("White"), _p2("Black"), _currTeam(0),_won(false)
 {
@@ -51,6 +52,7 @@ Board::Board()
 	}
 }
 
+//DTOR
 Board::~Board()
 {
 	for (int i = 0; i < BOARD_LENGTH; i++)
@@ -58,6 +60,7 @@ Board::~Board()
 			delete this->_board[i][j];
 }
 
+//checks if there is currently check
 int Board::isCheck()
 {
 	int place = findKing();
@@ -69,6 +72,7 @@ int Board::isCheck()
 	return -1;
 }
 
+//checks if there is currently checkmate
 bool Board::isCheckmate()
 {	
 	for (int k = 0; k < BOARD_LENGTH * BOARD_LENGTH; k++)
@@ -86,6 +90,7 @@ bool Board::isCheckmate()
 	return true;
 }
 
+//checks if the move will cause check
 bool Board::willCheck(const int src, const int dest)
 {
 	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
@@ -108,6 +113,7 @@ bool Board::willCheck(const int src, const int dest)
 	return ans;
 }
 
+//finds the location of the king of the current team
 int Board::findKing()
 {
 	for (int i = 0; i < BOARD_LENGTH; i++)
@@ -118,12 +124,14 @@ int Board::findKing()
 	return 0; 
 }
 
+//parses the message the backend recives from the frontend
 void Board::parseMsg(const std::string msgToParse, int(&results)[2])
 {
 	results[0] = BOARD_LENGTH*BOARD_LENGTH - 1 - ((int(msgToParse[1]) - '0' - 1) * BOARD_LENGTH + int(msgToParse[0]) - 'a');
 	results[1] = BOARD_LENGTH*BOARD_LENGTH - 1 - ((int(msgToParse[3]) - '0' - 1) * BOARD_LENGTH + int(msgToParse[2]) - 'a');
 }
 
+//updates the board and updates the message to send to frontend based on the source and destination
 void Board::updateBoard(const int src, const int dest)
 {
 	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, flag = 0, checkPlace = -1, isCas = 0, isEn = 0;
@@ -206,12 +214,13 @@ void Board::updateBoard(const int src, const int dest)
 
 }
 
-
+//returns the message to the frontend
 std::string Board::getMsg() const
 {
 	return this->_msg;
 }
 
+//changes the team that is currently playing
 void Board::changeTeam() 
 {
 	if (this->_currTeam)
@@ -226,6 +235,7 @@ void Board::changeTeam()
 	}
 }
 
+//checks if the current move is a castle
 int Board::isCastle(const int src, const int dest)
 {
 	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
@@ -252,6 +262,7 @@ int Board::isCastle(const int src, const int dest)
 	return 0;
 }
 
+//does a castle
 void Board::castle(int src, int dest, int isCas)
 {
 	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
@@ -275,6 +286,7 @@ void Board::castle(int src, int dest, int isCas)
 	}
 }
 
+//checks if the current move is an en passant
 int Board::isEnPassant(const int src, const int dest)
 {
 	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
@@ -297,6 +309,7 @@ int Board::isEnPassant(const int src, const int dest)
 	return false;
 }
 
+//does an en passant
 void Board::enPassant(const int src, const int dest)
 {
 	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;

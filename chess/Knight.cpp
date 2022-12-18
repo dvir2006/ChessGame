@@ -6,6 +6,7 @@ Knight::Knight(const int team, const int place) : IFigure("Knight", team, place)
 //DTOR
 Knight::~Knight() { }
 
+//function recives destination index,the chess board and the current team and returns a code according to the move(valid or not)
 int Knight::checkValidMove(const int index, IFigure* (&board)[BOARD_LENGTH][BOARD_LENGTH], int currTeam)const
 {
 	int i = index / BOARD_LENGTH, j = index % BOARD_LENGTH, i1 = this->_place / BOARD_LENGTH, j1 = this->_place % BOARD_LENGTH;

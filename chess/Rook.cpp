@@ -6,6 +6,7 @@ Rook::Rook(const int team, const int place) : IFigure("Rook", team, place) { }
 //DTOR
 Rook::~Rook() { }
 
+//function recives destination index,the chess board and the current team and returns a code according to the move(valid or not)
 int Rook::checkValidMove(const int index, IFigure* (&board)[BOARD_LENGTH][BOARD_LENGTH], int currTeam)const
 {
 	int dstI = index / BOARD_LENGTH, dstJ = index % BOARD_LENGTH;
