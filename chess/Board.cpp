@@ -301,6 +301,7 @@ void Board::enPassant(const int src, const int dest)
 {
 	int i = src / BOARD_LENGTH, j = src % BOARD_LENGTH, i1 = dest / BOARD_LENGTH, j1 = dest % BOARD_LENGTH;
 	this->_board[i][j]->move(src, dest, this->_board);
-	delete this->_board[i1][j1];
-	this->_board[i1][j1] = nullptr;
+	delete this->_board[i][j1];
+	this->_board[i][j1] = nullptr;
+
 }
