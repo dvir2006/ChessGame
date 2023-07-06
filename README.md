@@ -16,3 +16,7 @@ This is a Chess Game project developed by Dvir Profus and Bar Aharoni. It is an 
 
 # Screenshots
 ![Chess Game Screenshot](https://cdn.discordapp.com/attachments/1046849088936747070/1051918313439109140/image.png)
+
+# Contact info
+Dvir Profus: dvir7002@gmail.com
+Bar Aharoni: aharonibar1@gmail.com
