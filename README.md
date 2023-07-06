@@ -7,7 +7,12 @@ This is a Chess Game project developed by Dvir Profus and Bar Aharoni. It is an 
 * Interactive GUI interface for easy gameplay.
 * Error handling and validation for user moves.
 * Win condition detection and game over state.
+* Tate brothers chess figures
+* Nice in game music
 
 # Technologies Used
 * Programming Language: C++, C#
 * Libraries: Standard C++ Library
+
+# Screenshots
+https://cdn.discordapp.com/attachments/1046849088936747070/1051918313439109140/image.png
