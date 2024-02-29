@@ -15,8 +15,8 @@ This is a Chess Game project developed by Dvir Profus and Bar Aharoni. It is an 
 * Libraries: Standard C++ Library
 
 # Screenshots
-![Chess Game Screenshot](https://cdn.discordapp.com/attachments/1046849088936747070/1051918313439109140/image.png)
-
+![image](https://github.com/dvir2006/ChessGame/assets/61055320/b7aa5526-b646-4bf9-9045-314b443a0fd5)
+![image](https://github.com/dvir2006/ChessGame/assets/61055320/2695581c-7585-4598-a63c-cd9ebb6db433)
 # Contact info
 Dvir Profus: dvir7002@gmail.com
 Bar Aharoni: aharonibar1@gmail.com
